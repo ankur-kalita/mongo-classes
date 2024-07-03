@@ -49,7 +49,7 @@ app.put('/courses/:id', (req, res) => {
     }
 
     courses[courseIndex].name = updatedCourse.name;
-    res.json(courses[courseIndex]);
+    res.send(courses);
 });
 
 // DELETE endpoint to delete an existing course by id
@@ -63,7 +63,7 @@ app.delete('/courses/:id', (req, res) => {
     }
 
     const deletedCourse = courses.splice(courseIndex, 1);
-    res.json(deletedCourse[0]);
+    res.send(courses);
 });
 
 // Start the server

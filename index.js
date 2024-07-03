@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 
 app.use(express.json());
+app.use(middleware)
 
 let courses = [ 
     { id: 1, name: 'course1' },
@@ -65,6 +66,21 @@ app.delete('/courses/:id', (req, res) => {
     const deletedCourse = courses.splice(courseIndex, 1);
     res.send(courses);
 });
+
+
+// Logger middleware
+// method , ip, hostname, date
+function middleware(req, res, next) {
+    const method = req.method;
+    const ip = req.ip;
+    const hostname = req.hostname;
+    const date = new Date().toISOString();
+
+    console.log(`[${date}] ${method} request from ${ip} to ${hostname}`);
+    next();
+}
+
+app.use(middleware)
 
 // Start the server
 app.listen(3000, () => {
